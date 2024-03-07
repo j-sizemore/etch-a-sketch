@@ -1,0 +1,15 @@
+#container {
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+.grid-row {
+    display: flex;
+    box-sizing: border-box;
+}
+
+.grid-cell {
+    box-sizing: border-box;
+    border: 1px solid black;
+}
