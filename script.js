@@ -1,5 +1,17 @@
 const MAX_WIDTH = 960.0; // maximum grid width in px
-const DRAW_COLOR = 'black';
+
+function randomRGBValue() {
+    return Math.floor(Math.random() * 256);
+}
+
+function changeBgColor(event) {
+    event.target.style.setProperty('background-color', `rgb(
+        ${randomRGBValue()},
+        ${randomRGBValue()},
+        ${randomRGBValue()}
+    )`);
+    event.target.removeEventListener('mouseover', changeBgColor);
+}
 
 function generateNewGrid(gridSize) {
     const container = document.createElement('div');
@@ -22,13 +34,7 @@ function generateNewGrid(gridSize) {
     
     document.body.appendChild(container);
     
-    function changeBgColor(event) {
-        event.target.style.backgroundColor = DRAW_COLOR;
-        event.target.removeEventListener('mouseover', changeBgColor);
-    }
-    
-    const cells = document.querySelectorAll('.grid-cell');
-    
+    const cells = document.querySelectorAll('.grid-cell');    
     cells.forEach((cell) => {
         cell.addEventListener('mouseover', changeBgColor);
     });
