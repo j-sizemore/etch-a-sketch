@@ -1,5 +1,6 @@
 const GRID_SIZE = 16; // length and width of grid
 const CELL_SIZE = 50; // length and width in px of cell
+const DRAW_COLOR = 'black';
 
 const container = document.createElement('div');
 container.id = 'container';
@@ -18,3 +19,14 @@ for (let i = 0; i < GRID_SIZE; i++) {
 }
 
 document.body.appendChild(container);
+
+function changeBgColor(event) {
+    event.target.style.backgroundColor = DRAW_COLOR;
+    event.target.removeEventListener('mouseover', changeBgColor);
+}
+
+const cells = document.querySelectorAll('.grid-cell');
+
+cells.forEach((cell) => {
+    cell.addEventListener('mouseover', changeBgColor);
+});
