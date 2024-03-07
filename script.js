@@ -1,16 +1,38 @@
 const MAX_WIDTH = 960.0; // maximum grid width in px
+const DARKEN_RATIO = 0.9;
 
 function randomRGBValue() {
     return Math.floor(Math.random() * 256);
 }
 
 function changeBgColor(event) {
-    event.target.style.setProperty('background-color', `rgb(
-        ${randomRGBValue()},
-        ${randomRGBValue()},
-        ${randomRGBValue()}
-    )`);
-    event.target.removeEventListener('mouseover', changeBgColor);
+    let cell = event.target;
+    let currentRGB = cell.style.backgroundColor
+    if (!currentRGB) {
+        cell.style.setProperty('background-color', `rgb(
+            ${randomRGBValue()},
+            ${randomRGBValue()},
+            ${randomRGBValue()}
+        )`);
+    } else {
+        // save rgb values to array using regex
+        let colorValueArray = currentRGB.match(/\d+/g);
+
+        // darken each cell
+        colorValueArray = colorValueArray.map((color) => {
+            return Math.floor(color * DARKEN_RATIO);
+        });
+
+        cell.style.setProperty('background-color', `rgb(
+            ${colorValueArray[0]},
+            ${colorValueArray[1]},
+            ${colorValueArray[2]}
+        )`);
+    }
+
+    if (currentRGB == 'rgb(0, 0, 0)') {
+        event.target.removeEventListener('mouseover', changeBgColor)
+    };
 }
 
 function generateNewGrid(gridSize) {
